@@ -35,7 +35,7 @@ void virt_uart_init(void)
 
     uint8_t lcr = uart_read_reg(LCR);
     uart_write_reg(LCR, lcr | (1 << 7));
-    uart_write_reg(DLL, 0x03);
+    uart_write_reg(DLL, 0x01);
     uart_write_reg(DLM, 0x00);
 
     lcr = 0;
