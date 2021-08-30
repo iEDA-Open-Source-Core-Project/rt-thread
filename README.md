@@ -1,11 +1,13 @@
 # RT-Thread #
 
 Build from repository
-----------------------
+适配一生一芯指令集的RT-Thread, 支持编译到flash和memory两种模式.
 
-      $  git clone https://github.com/OSCPU/rt-thread.git
-      $  cd rt-thread/bsp/qemu-riscv-virt64
-      $  scons
+编译方法
+----------------------
+1. 修改`rt-thread/bsp/qemu-riscv-virt64/rtconfig.py`,通过设置`FLASH=0 | 1`指定编译到memory或者flash
+2. 在`rt-thread/bsp/qemu-riscv-virt64`目录下通过`scons`编译.
+
 
 The rest of the document is the introduction to RT-Thread.
 
