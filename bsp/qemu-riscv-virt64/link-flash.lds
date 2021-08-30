@@ -29,30 +29,6 @@ SECTIONS
     *(.text.unlikely .text.unlikely.*)
     *(.text.startup .text.startup.*)
     *(.text .text.*)
-    *(.gnu.linkonce.t.*)
-
-    /* section information for finsh shell */
-    . = ALIGN(4);
-    __fsymtab_start = .;
-    KEEP(*(FSymTab))
-    __fsymtab_end = .;
-    . = ALIGN(4);
-    __vsymtab_start = .;
-    KEEP(*(VSymTab))
-    __vsymtab_end = .;
-    . = ALIGN(4);
-
-    . = ALIGN(4);
-    __rt_init_start = .;
-    KEEP(*(SORT(.rti_fn*)))
-    __rt_init_end = .;
-    . = ALIGN(4);
-
-    /* section information for modules */
-    . = ALIGN(4);
-    __rtmsymtab_start = .;
-    KEEP(*(RTMSymTab))
-    __rtmsymtab_end = .;
 
   } >flash AT>flash :flash
 
@@ -64,15 +40,6 @@ SECTIONS
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);
-
-  .rodata         :
-  {
-    *(.rdata)
-    *(.rodata .rodata.*)
-    *(.gnu.linkonce.r.*)
-  } >flash AT>flash :flash
-
-  . = ALIGN(4);
 
   .preinit_array  :
   {
@@ -140,8 +107,38 @@ SECTIONS
     PROVIDE( _data = . );
   } >ram AT>flash :ram_init
 
+
+  . = ALIGN(4);
   .data          :
   {
+    *(.gnu.linkonce.t.*)
+
+    /* section information for finsh shell */
+    . = ALIGN(4);
+    __fsymtab_start = .;
+    KEEP(*(FSymTab))
+    __fsymtab_end = .;
+    . = ALIGN(4);
+    __vsymtab_start = .;
+    KEEP(*(VSymTab))
+    __vsymtab_end = .;
+    . = ALIGN(4);
+
+    . = ALIGN(4);
+    __rt_init_start = .;
+    KEEP(*(SORT(.rti_fn*)))
+    __rt_init_end = .;
+    . = ALIGN(4);
+
+    /* section information for modules */
+    . = ALIGN(4);
+    __rtmsymtab_start = .;
+    KEEP(*(RTMSymTab))
+    __rtmsymtab_end = .;
+
+    *(.rdata)
+    *(.rodata .rodata.*)
+    *(.gnu.linkonce.r.*)
     *(.data .data.*)
     *(.gnu.linkonce.d.*)
     . = ALIGN(8);
