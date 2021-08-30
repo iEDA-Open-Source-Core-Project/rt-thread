@@ -25,6 +25,8 @@ if os.getenv('RTT_EXEC_PATH'):
 
 BUILD = 'debug'
 
+FLASH = 0
+
 if PLATFORM == 'gcc':
     # toolchains
     PREFIX  = 'riscv64-linux-gnu-'
@@ -41,7 +43,13 @@ if PLATFORM == 'gcc':
     DEVICE  = ' -fno-pic -mcmodel=medany -march=rv64ifd -mabi=lp64d'
     CFLAGS  = DEVICE + ' -fvar-tracking -ffreestanding -fno-common -ffunction-sections -fdata-sections -fstrict-volatile-bitfields '
     AFLAGS  = ' -c' + DEVICE + ' -x assembler-with-cpp'
-    LFLAGS  = ' --gc-sections -Map=rtthread.map -cref -u _start -T link.lds '
+    LFLAGS  = ' --gc-sections -Map=rtthread.map -cref -u _start '
+    if FLASH == 1:
+        LFLAGS += '-T link-flash.lds'
+        CFLAGS += ' -DFLASH'
+        AFLAGS += ' -DFLASH'
+    else:
+        LFLAGS += '-T link-memory.lds'
     CPATH   = ''
     LPATH   = ''
 
