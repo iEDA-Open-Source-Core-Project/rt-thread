@@ -141,8 +141,8 @@ struct sbi_ret
 };
 
 static __inline struct sbi_ret
-sbi_call(uint64_t arg7, uint64_t arg6, uint64_t arg0, uint64_t arg1,
-         uint64_t arg2, uint64_t arg3, uint64_t arg4)
+sbi_call(uint32_t arg7, uint32_t arg6, uint32_t arg0, uint32_t arg1,
+         uint32_t arg2, uint32_t arg3, uint32_t arg4)
 {
     struct sbi_ret ret;
 
@@ -177,7 +177,7 @@ sbi_probe_extension(long id)
 }
 
 /* TIME extension functions. */
-void sbi_set_timer(uint64_t val);
+void sbi_set_timer(uint32_t val);
 
 /* IPI extension functions. */
 void sbi_send_ipi(const unsigned long *hart_mask);

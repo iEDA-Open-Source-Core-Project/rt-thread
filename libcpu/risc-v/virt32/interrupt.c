@@ -159,7 +159,7 @@ void dump_regs(struct rt_hw_stack_frame *regs)
     rt_kprintf("satp = 0x%p\n",satp_v);
     const char *mode_str = "Unknown Address Translation/Protection Mode";
 
-    switch(__MASKVALUE(satp_v >> 60,__MASK(4)))
+    switch(__MASKVALUE(satp_v >> 28,__MASK(4)))
     {
         case 0:
             mode_str = "No Address Translation/Protection Mode";
@@ -180,10 +180,11 @@ void dump_regs(struct rt_hw_stack_frame *regs)
 
 void handle_trap(rt_size_t xcause,rt_size_t xtval,rt_size_t xepc,struct rt_hw_stack_frame *sp)
 {
-    int cause = (xcause & 0xFFFFFFFF);
+    int cause = (xcause & 0x7FFFFFFF);
     int plic_irq = 0;
-    if (xcause & (1UL << 63))
+    if (xcause & (1UL << 31))
     {
+        //rt_kprintf("%d\n", cause);
         switch (cause)
         {
             case IRQ_M_SOFT:

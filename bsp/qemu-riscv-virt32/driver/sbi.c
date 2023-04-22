@@ -117,7 +117,7 @@ sbi_print_version(void)
 }
 
 void
-sbi_set_timer(uint64_t val)
+sbi_set_timer(uint32_t val)
 {
     struct sbi_ret ret;
 
@@ -147,7 +147,7 @@ sbi_send_ipi(const unsigned long *hart_mask)
     }
     else
     {
-        (void)SBI_CALL1(SBI_SEND_IPI, 0, (uint64_t)hart_mask);
+        (void)SBI_CALL1(SBI_SEND_IPI, 0, (uint32_t)hart_mask);
     }
 }
 
@@ -165,7 +165,7 @@ sbi_remote_fence_i(const unsigned long *hart_mask)
     }
     else
     {
-        (void)SBI_CALL1(SBI_REMOTE_FENCE_I, 0, (uint64_t)hart_mask);
+        (void)SBI_CALL1(SBI_REMOTE_FENCE_I, 0, (uint32_t)hart_mask);
     }
 }
 
@@ -183,7 +183,7 @@ sbi_remote_sfence_vma(const unsigned long *hart_mask, unsigned long start, unsig
     }
     else
     {
-        (void)SBI_CALL3(SBI_REMOTE_SFENCE_VMA, 0, (uint64_t)hart_mask,
+        (void)SBI_CALL3(SBI_REMOTE_SFENCE_VMA, 0, (uint32_t)hart_mask,
                         start, size);
     }
 }
@@ -204,7 +204,7 @@ sbi_remote_sfence_vma_asid(const unsigned long *hart_mask, unsigned long start, 
     else
     {
         (void)SBI_CALL4(SBI_REMOTE_SFENCE_VMA_ASID, 0,
-                        (uint64_t)hart_mask, start, size, asid);
+                        (uint32_t)hart_mask, start, size, asid);
     }
 }
 

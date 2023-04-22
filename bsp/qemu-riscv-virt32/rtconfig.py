@@ -2,7 +2,7 @@ import os
 
 # toolchains options
 ARCH        ='risc-v'
-CPU         ='virt64'
+CPU         ='virt32'
 CROSS_TOOL  ='gcc'
 
 if os.getenv('RTT_ROOT'):
@@ -10,12 +10,21 @@ if os.getenv('RTT_ROOT'):
 else:
     RTT_ROOT = os.path.join(os.getcwd(), '..', '..')
 
+if os.getenv('WORKDIR'):
+    WORKDIR = os.getenv('WORKDIR')
+else:
+    WORKDIR = None
+
 if os.getenv('RTT_CC'):
     CROSS_TOOL = os.getenv('RTT_CC')
 
 if  CROSS_TOOL == 'gcc':
     PLATFORM    = 'gcc'
-    EXEC_PATH   = r'/usr/bin'
+    if WORKDIR == None:
+        EXEC_PATH = r'/opt/riscv/bin'
+    else:
+        EXEC_PATH = WORKDIR + r'/output/riscv/bin'
+    print(EXEC_PATH);
 else:
     print('Please make sure your toolchains is GNU GCC!')
     exit(0)
@@ -29,7 +38,7 @@ FLASH = 0
 
 if PLATFORM == 'gcc':
     # toolchains
-    PREFIX  = 'riscv64-linux-gnu-'
+    PREFIX  = 'riscv64-unknown-elf-'
     CC      = PREFIX + 'gcc'
     CXX     = PREFIX + 'g++'
     AS      = PREFIX + 'gcc'
@@ -40,10 +49,10 @@ if PLATFORM == 'gcc':
     OBJDUMP = PREFIX + 'objdump'
     OBJCPY  = PREFIX + 'objcopy'
 
-    DEVICE  = ' -fno-pic -mcmodel=medany -march=rv64ifd -mabi=lp64d'
+    DEVICE  = ' -fno-pic -march=rv32im -mabi=ilp32'
     CFLAGS  = DEVICE + ' -ffreestanding -fno-common -ffunction-sections -fdata-sections -fstrict-volatile-bitfields '
     AFLAGS  = ' -c' + DEVICE + ' -x assembler-with-cpp'
-    LFLAGS  = ' --gc-sections -Map=rtthread.map -cref -u _start '
+    LFLAGS  = ' -m elf32lriscv --gc-sections -Map=rtthread.map -cref -u _start '
     if FLASH == 1:
         LFLAGS += '-T link-flash.lds'
         CFLAGS += ' -DFLASH'

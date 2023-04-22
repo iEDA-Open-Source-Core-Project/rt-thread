@@ -40,3 +40,4 @@ CMakeLists.txt
 cmake-build-debug
 
 .vscode
+bsp/qemu-riscv-virt64/.cache/clangd/index
