@@ -20,6 +20,9 @@
 #define REGBYTES                8
 #else
 // error here, not portable
+#define STORE                   sw
+#define LOAD                    lw
+#define REGBYTES                4
 #endif
 
 #ifdef RISCV_U_MODE

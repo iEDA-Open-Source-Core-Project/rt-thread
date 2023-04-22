@@ -45,9 +45,9 @@
 #define RT_CONSOLEBUF_SIZE 256
 #define RT_CONSOLE_DEVICE_NAME "uart"
 #define RT_VER_NUM 0x40004
-#define ARCH_CPU_64BIT
+//#define ARCH_CPU_64BIT
 #define ARCH_RISCV
-#define ARCH_RISCV64
+//#define ARCH_RISCV64
 
 /* RT-Thread Components */
 
@@ -103,9 +103,9 @@
 // #define RT_USING_POSIX
 #define RT_LIBC_FIXED_TIMEZONE 8
 
-#define HAVE_SIGINFO
-#define HAVE_SIGVAL
-#define HAVE_SIGEVENT
+//#define HAVE_SIGINFO
+//#define HAVE_SIGVAL
+//#define HAVE_SIGEVENT
 #define USING_RV64_LINUX_GNU_TOOLCHAIN
 /* Network */
 
